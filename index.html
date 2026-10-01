@@ -190,15 +190,6 @@
     .work-link:hover { color: #fff; }
     .work-link svg { width: 12px; height: 12px; }
 
-    .stills-feature { margin-top: clamp(72px, 9vw, 128px); padding-top: clamp(40px, 6vw, 84px); border-top: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, .82fr) minmax(320px, .7fr); align-items: center; justify-content: space-between; gap: clamp(36px, 8vw, 128px); }
-    .stills-copy { max-width: 470px; }
-    .stills-copy h3 { margin: 0 0 18px; color: var(--paper); font-family: var(--serif); font-size: clamp(38px, 4.8vw, 64px); font-weight: 400; line-height: .98; letter-spacing: -.035em; }
-    .stills-copy p { max-width: 32ch; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
-    .instagram-frame { justify-self: end; width: min(100%, 480px); max-height: 610px; aspect-ratio: .84 / 1; overflow: hidden; border: 1px solid rgba(244,240,235,.2); border-radius: 15px; background: #fff; box-shadow: 0 24px 70px rgba(0,0,0,.3); }
-    .instagram-frame iframe { width: calc(100% + 2px); height: calc(100% + 2px); border: 0; overflow: hidden; }
-    .instagram-link { display: inline-flex; align-items: center; gap: 10px; margin-top: 23px; color: #fff; font-size: 11px; font-weight: 700; }
-    .instagram-link:hover { color: #e2a2a2; }
-
     .media-library { display: none; padding-top: 25px; }
     .media-library.is-visible { display: block; }
     .media-library .section-head { margin-bottom: 22px; }
@@ -252,7 +243,6 @@
       .hero-inner { grid-template-columns: minmax(280px, .88fr) minmax(0, 1.12fr); gap: 42px; }
       .hero h1 { font-size: clamp(56px, 7.3vw, 86px); }
       .film-grid { grid-template-columns: repeat(2, minmax(0,1fr)); gap: 28px 18px; }
-      .stills-feature { gap: 46px; }
     }
     @media (max-width: 720px) {
       html { scroll-padding-top: 88px; }
@@ -286,10 +276,6 @@
       .media-frame { aspect-ratio: 1.18 / 1; border-radius: 13px; }
       .work-info { padding-top: 12px; }
       .work-info h3 { font-size: 24px; }
-      .stills-feature { grid-template-columns: 1fr; gap: 26px; margin-top: 66px; padding-top: 48px; }
-      .stills-copy h3 { margin-bottom: 12px; font-size: clamp(39px, 10vw, 54px); }
-      .stills-copy p { font-size: 12px; }
-      .instagram-frame { justify-self: center; width: min(100%, 430px); aspect-ratio: .87 / 1; border-radius: 13px; }
       .media-library { padding-top: 8px; }
       .media-grid { grid-template-columns: 1fr; gap: 26px; }
       .approach-head { margin-bottom: 23px; }
@@ -355,12 +341,12 @@
             <a class="button" href="https://youtube.com/@aura.motion.pictures" target="_blank" rel="noopener noreferrer">Watch on YouTube <span aria-hidden="true">↗</span></a>
           </div>
         </div>
-        <a class="hero-visual" href="https://www.youtube.com/watch?v=TzJsE-Osbco" target="_blank" rel="noopener noreferrer" aria-label="Watch Bavarian District Meeting Vol. 6 on YouTube">
-          <img class="hero-image" src="https://i.ytimg.com/vi/TzJsE-Osbco/maxresdefault.jpg" alt="Aura Production film still from Bavarian District Meeting Vol. 6" fetchpriority="high">
-          <span class="hero-visual-top"><span>Aura Motion Pictures</span><span>Featured film</span></span>
+        <a class="hero-visual" href="https://www.instagram.com/p/CjTGylntPzz/" target="_blank" rel="noopener noreferrer" aria-label="View RS Event, The Cream on Aura’s Instagram">
+          <img class="hero-image" src="assets/aura-rs-event.jpg" alt="Aura event photography at RS Event — The Cream" width="1080" height="1080" fetchpriority="high" decoding="async">
+          <span class="hero-visual-top"><span>Aura Motion Pictures</span><span>Photography</span></span>
           <span class="hero-visual-bottom">
-            <span class="hero-caption"><span>Event film · Aura Production</span><strong>Bavarian District Meeting Vol. 6</strong></span>
-            <span class="hero-play" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M7 4.7c0-.75.82-1.2 1.45-.8l8.1 5.3a.95.95 0 0 1 0 1.6l-8.1 5.3A.95.95 0 0 1 7 15.3V4.7Z" fill="currentColor"/></svg></span>
+            <span class="hero-caption"><span>Event photography · Aura</span><strong>RS Event — The Cream</strong></span>
+            <span class="hero-play" aria-hidden="true"><svg viewBox="0 0 20 20" fill="none"><path d="M6 14 14 6M7 6h7v7" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </span>
         </a>
       </div>
@@ -370,7 +356,7 @@
       <div class="wrap">
         <div class="section-head reveal">
           <h2 class="section-title" id="work-title">Selected work</h2>
-          <p class="section-intro">Films made by Aura Motion Pictures.</p>
+          <p class="section-intro">Photography and film by Aura Motion Pictures.</p>
         </div>
         <div class="film-grid" id="workGrid">
           <article class="work-card reveal" data-category="film events">
@@ -412,18 +398,6 @@
             </div>
             <div class="work-info"><span class="work-type">Event film</span><h3>Bavarian District Meeting Vol. 5</h3><a class="work-link" href="https://www.youtube.com/watch?v=Erdjupk2tUQ" target="_blank" rel="noopener noreferrer">Watch film <span aria-hidden="true">↗</span></a></div>
           </article>
-        </div>
-
-        <div class="stills-feature reveal">
-          <div class="stills-copy">
-            <span class="work-type">Photography · Event</span>
-            <h3>RS Event — The Cream</h3>
-            <p>Stills from Aura’s event photography.</p>
-            <a class="instagram-link" href="https://www.instagram.com/p/CjTGylntPzz/" target="_blank" rel="noopener noreferrer">Open on Instagram <span aria-hidden="true">↗</span></a>
-          </div>
-          <div class="instagram-frame">
-            <iframe src="https://www.instagram.com/p/CjTGylntPzz/embed/" title="Aura Instagram photo post — RS Event, The Cream" loading="lazy" scrolling="no" allowtransparency="true" allowfullscreen></iframe>
-          </div>
         </div>
       </div>
     </section>
@@ -688,8 +662,8 @@
         document.querySelectorAll(".reveal").forEach(function (item) { revealObserver.observe(item); });
       }
 
-      document.querySelectorAll(".hero-image, .video-poster").forEach(function (image) {
-        var videoId = image.closest(".hero-visual") ? "TzJsE-Osbco" : image.closest("[data-video-card]")?.querySelector("[data-video-player]")?.getAttribute("data-video-id");
+      document.querySelectorAll(".video-poster").forEach(function (image) {
+        var videoId = image.closest("[data-video-card]")?.querySelector("[data-video-player]")?.getAttribute("data-video-id");
         if (!videoId) return;
         image.addEventListener("error", function () {
           if (image.dataset.fallback) { image.remove(); return; }
