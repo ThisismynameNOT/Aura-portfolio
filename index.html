@@ -414,7 +414,7 @@ main { display: block; }
         <div class="film-grid" id="workGrid">
           <article class="work-card reveal" data-category="film events">
             <div class="media-frame" data-video-card>
-              <img class="video-poster" src="https://i.ytimg.com/vi/TzJsE-Osbco/maxresdefault.jpg" alt="" loading="lazy">
+              <img class="video-poster" src="https://img.youtube.com/vi/TzJsE-Osbco/maxresdefault.jpg" alt="" loading="lazy">
               <iframe class="youtube-player" data-video-player data-video-id="TzJsE-Osbco" title="Bavarian District Meeting Vol. 6 — Aura Production" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               <div class="media-tools">
                 <button class="preview-start" type="button" data-start-video aria-label="Play Bavarian District Meeting Vol. 6 preview">
@@ -427,7 +427,7 @@ main { display: block; }
           </article>
           <article class="work-card reveal" data-category="film">
             <div class="media-frame" data-video-card>
-              <img class="video-poster" src="https://i.ytimg.com/vi/5w7hvksP_hU/maxresdefault.jpg" alt="" loading="lazy">
+              <img class="video-poster" src="https://img.youtube.com/vi/5w7hvksP_hU/maxresdefault.jpg" alt="" loading="lazy">
               <iframe class="youtube-player" data-video-player data-video-id="5w7hvksP_hU" title="Tuning Story 2025 — Aura Production" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               <div class="media-tools">
                 <button class="preview-start" type="button" data-start-video aria-label="Play Tuning Story 2025 preview">
@@ -440,7 +440,7 @@ main { display: block; }
           </article>
           <article class="work-card reveal" data-category="film events">
             <div class="media-frame" data-video-card>
-              <img class="video-poster" src="https://i.ytimg.com/vi/Erdjupk2tUQ/maxresdefault.jpg" alt="" loading="lazy">
+              <img class="video-poster" src="https://img.youtube.com/vi/Erdjupk2tUQ/maxresdefault.jpg" alt="" loading="lazy">
               <iframe class="youtube-player" data-video-player data-video-id="Erdjupk2tUQ" title="Bavarian District Meeting Vol. 5 — Aura Production" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               <div class="media-tools">
                 <button class="preview-start" type="button" data-start-video aria-label="Play Bavarian District Meeting Vol. 5 preview">
@@ -780,7 +780,7 @@ main { display: block; }
         image.addEventListener("error", function () {
           if (!image.dataset.fallback) {
             image.dataset.fallback = "hq";
-            image.src = "https://i.ytimg.com/vi/" + encodeURIComponent(videoId) + "/hqdefault.jpg";
+            image.src = "https://img.youtube.com/vi/" + encodeURIComponent(videoId) + "/hqdefault.jpg";
             return;
           }
           if (image.dataset.fallback === "hq") {
