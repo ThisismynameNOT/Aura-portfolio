@@ -147,38 +147,40 @@ main { display: block; }
 
 .section { padding: 76px 0; }
 .work-section { padding: 0 0 clamp(86px, 10vw, 140px); }
-.section-head {
-  display: grid; grid-template-columns: auto minmax(36px, 1fr) auto;
-  align-items: center; gap: 24px; margin: 0 0 24px;
+.work-section-head {
+  display: flex; align-items: end; justify-content: space-between; gap: 24px;
+  margin: 0 0 25px; padding: 0 0 19px; border-bottom: 1px solid var(--line);
 }
-.work-heading-copy { display: contents; }
-.section-kicker { color: #d8ccb7; font-size: 10px; letter-spacing: .28em; }
-.section-rule { height: 1px; background: linear-gradient(90deg, var(--gold-soft), rgba(230,218,194,.12)); }
 .section-title { margin: 0; color: var(--ivory); font-family: var(--serif); font-size: clamp(42px, 5vw, 68px); font-weight: 400; line-height: .98; letter-spacing: -.04em; }
-.view-work {
-  width: 40px; height: 40px; display: grid; place-items: center;
-  border: 1px solid var(--gold-soft); border-radius: 50%; color: var(--gold); font-size: 19px;
-  transition: color .22s ease, background .22s ease, transform .22s var(--ease);
+.work-section-head .section-title { font-size: clamp(38px, 4.6vw, 60px); letter-spacing: -.035em; }
+.work-channel-link {
+  display: inline-flex; align-items: center; gap: 13px; padding-bottom: 2px;
+  color: var(--muted); font-size: 9px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  transition: color .22s ease;
 }
-.view-work:hover { color: var(--bg); background: var(--gold); transform: translateX(2px); }
-.film-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 29px); align-items: start; }
+.work-channel-link svg { width: 37px; height: 37px; padding: 10px; border: 1px solid var(--gold-soft); border-radius: 50%; color: var(--gold); transition: color .22s ease, background .22s ease, transform .22s var(--ease); }
+.work-channel-link:hover { color: var(--ivory); }
+.work-channel-link:hover svg { color: var(--bg); background: var(--gold); transform: translate(2px,-2px); }
+.film-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(18px, 2vw, 29px); align-items: start; }
 .work-card { position: relative; min-width: 0; }
 .media-frame {
-  position: relative; isolation: isolate; aspect-ratio: 3 / 1; overflow: hidden;
+  position: relative; isolation: isolate; aspect-ratio: 16 / 10; overflow: hidden;
+  border-radius: 11px;
   border: 1px solid rgba(201,177,131,.32); background: #111210;
 }
-.media-frame::before { content: ""; position: absolute; z-index: 2; inset: 0; border: 1px solid rgba(234,220,193,.08); pointer-events: none; }
+.media-frame::before { content: ""; position: absolute; z-index: 2; inset: 4px; border: 1px solid rgba(234,220,193,.1); border-radius: 7px; pointer-events: none; }
 .media-frame::after {
-  content: ""; position: absolute; z-index: 1; inset: 48% 0 0; pointer-events: none;
-  background: linear-gradient(180deg, transparent, rgba(5,6,5,.43));
+  content: ""; position: absolute; z-index: 1; inset: 58% 0 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(5,6,5,.36));
 }
 .media-frame--still { aspect-ratio: 4 / 5; }
 .video-poster, .uploaded-visual { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .video-poster { opacity: 1; transition: opacity .4s ease, transform .7s var(--ease); }
-.work-card:hover .video-poster { transform: scale(1.02); }
-.youtube-player { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; border: 0; background: #050605; opacity: 0; transition: opacity .4s ease; }
+.work-card:hover .video-poster { transform: scale(1.035); }
+.youtube-player { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; border: 0; background: #050605; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
 .media-frame.is-live .youtube-player { opacity: 1; }
 .media-frame.is-live .video-poster { opacity: 0; }
+.media-frame.is-live .preview-start { opacity: 0; pointer-events: none; }
 .media-tools { position: absolute; z-index: 4; inset: 0; display: block; pointer-events: none; }
 .media-tools > * { pointer-events: auto; }
 .preview-start, .sound-toggle {
@@ -192,24 +194,30 @@ main { display: block; }
 }
 .preview-start svg { width: 14px; height: 14px; margin-left: 2px; }
 .preview-start:hover { color: #080908; background: var(--gold); transform: translate(-50%,-50%) scale(1.06); }
-.sound-toggle { position: absolute; top: 9px; right: 9px; min-height: 30px; padding: 0 9px; }
+.sound-toggle { position: absolute; top: 14px; right: 14px; min-height: 29px; padding: 0 10px; border-radius: 999px; backdrop-filter: blur(10px); }
 .sound-toggle:hover, .sound-toggle[aria-pressed="true"] { color: #080908; background: var(--gold); }
 .work-info {
-  position: relative; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px;
-  margin-top: 13px; pointer-events: none;
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  margin-top: 15px; pointer-events: none;
 }
+.work-copy { min-width: 0; }
 .work-info h3 {
-  flex: 1 1 auto; min-width: 0; margin: 0; color: var(--ivory);
-  font-family: var(--serif); font-size: clamp(15px, 1.35vw, 19px); font-weight: 400; line-height: 1.2;
+  min-width: 0; margin: 0; color: var(--ivory);
+  font-family: var(--serif); font-size: clamp(17px, 1.45vw, 21px); font-weight: 400; line-height: 1.22;
 }
-.work-info h3 a { pointer-events: auto; }
+.work-info h3 a { pointer-events: auto; transition: color .2s ease; }
+.work-info h3 a:hover { color: var(--gold); }
 .work-category {
-  flex: 0 0 100%; margin: 0; color: var(--gold); font-size: 8px; font-weight: 500;
+  margin: 0 0 6px; color: var(--gold); font-size: 8px; font-weight: 600;
   letter-spacing: .23em; line-height: 1.4; text-transform: uppercase;
 }
+.work-open-link { width: 34px; height: 34px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid rgba(230,218,194,.16); border-radius: 50%; color: var(--muted); pointer-events: auto; transition: color .2s ease, border-color .2s ease, background .2s ease; }
+.work-open-link svg { width: 13px; height: 13px; }
+.work-open-link:hover { color: var(--bg); border-color: var(--gold); background: var(--gold); }
 .work-link { position: static; display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 9px; letter-spacing: .1em; pointer-events: auto; }
 .work-link:hover { color: var(--gold); }
 .work-link svg { width: 11px; height: 11px; }
+.work-channel-link:focus-visible, .work-open-link:focus-visible { outline-offset: 5px; }
 
 .media-library { display: none; padding: 0 0 90px; }
 .media-library.is-visible { display: block; }
@@ -269,7 +277,7 @@ main { display: block; }
   .hero-feature { width: 100%; }
   .hero h1 { font-size: clamp(100px, 14vw, 150px); }
   .film-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .media-frame { aspect-ratio: 16 / 9; }
+  .media-frame { aspect-ratio: 16 / 10; }
 }
 @media (max-width: 720px) {
   html { scroll-padding-top: 20px; }
@@ -296,11 +304,16 @@ main { display: block; }
   .hero-caption { padding-top: 14px; font-size: 8px; }
   .section { padding: 58px 0; }
   .work-section { padding: 0 0 76px; }
+  .work-section-head { align-items: center; gap: 10px; margin-bottom: 19px; padding-bottom: 14px; }
+  .work-section-head .section-title { font-size: clamp(32px, 9vw, 40px); }
+  .work-channel-link { gap: 0; }
+  .work-channel-link span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+  .work-channel-link svg { width: 36px; height: 36px; }
   .section-head { grid-template-columns: auto minmax(20px, 1fr) auto; gap: 13px; margin-bottom: 20px; }
   .section-kicker { font-size: 9px; letter-spacing: .22em; }
   .view-work { width: 36px; height: 36px; }
   .film-grid { grid-template-columns: 1fr; gap: 28px; }
-  .media-frame { aspect-ratio: 16 / 9; }
+  .media-frame { aspect-ratio: 16 / 10; }
   .work-info { gap: 5px 12px; margin-top: 11px; }
   .work-info h3 { font-size: 18px; }
   .work-category { font-size: 8px; }
@@ -385,10 +398,12 @@ main { display: block; }
 
     <section class="section work-section" id="work" aria-labelledby="work-title">
       <div class="wrap">
-        <div class="section-head reveal">
-          <h2 class="section-kicker" id="work-title">Selected work</h2>
-          <span class="section-rule" aria-hidden="true"></span>
-          <a class="view-work" href="https://youtube.com/@aura.motion.pictures" target="_blank" rel="noopener noreferrer" aria-label="View all Aura work"><span aria-hidden="true">↗</span></a>
+        <div class="work-section-head reveal">
+          <h2 class="section-title" id="work-title">Selected work</h2>
+          <a class="work-channel-link" href="https://youtube.com/@aura.motion.pictures" target="_blank" rel="noopener noreferrer" aria-label="View all Aura films on YouTube">
+            <span>View channel</span>
+            <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
         </div>
         <div class="film-grid" id="workGrid">
           <article class="work-card reveal" data-category="film events">
@@ -402,7 +417,7 @@ main { display: block; }
                 <button class="sound-toggle" type="button" data-sound-toggle aria-label="Turn sound on" aria-pressed="false">Sound off</button>
               </div>
             </div>
-            <div class="work-info"><p class="work-category">Event</p><h3><a href="https://www.youtube.com/watch?v=TzJsE-Osbco" target="_blank" rel="noopener noreferrer">Bavarian District Meeting Vol. 6</a></h3></div>
+            <div class="work-info"><div class="work-copy"><p class="work-category">Event</p><h3><a href="https://www.youtube.com/watch?v=TzJsE-Osbco" target="_blank" rel="noopener noreferrer">Bavarian District Meeting Vol. 6</a></h3></div><a class="work-open-link" href="https://www.youtube.com/watch?v=TzJsE-Osbco" target="_blank" rel="noopener noreferrer" aria-label="Watch Bavarian District Meeting Vol. 6 on YouTube"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
           </article>
           <article class="work-card reveal" data-category="film">
             <div class="media-frame" data-video-card>
@@ -415,7 +430,7 @@ main { display: block; }
                 <button class="sound-toggle" type="button" data-sound-toggle aria-label="Turn sound on" aria-pressed="false">Sound off</button>
               </div>
             </div>
-            <div class="work-info"><p class="work-category">Feature</p><h3><a href="https://www.youtube.com/watch?v=5w7hvksP_hU" target="_blank" rel="noopener noreferrer">Tuning Story 2025</a></h3></div>
+            <div class="work-info"><div class="work-copy"><p class="work-category">Feature</p><h3><a href="https://www.youtube.com/watch?v=5w7hvksP_hU" target="_blank" rel="noopener noreferrer">Tuning Story 2025</a></h3></div><a class="work-open-link" href="https://www.youtube.com/watch?v=5w7hvksP_hU" target="_blank" rel="noopener noreferrer" aria-label="Watch Tuning Story 2025 on YouTube"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
           </article>
           <article class="work-card reveal" data-category="film events">
             <div class="media-frame" data-video-card>
@@ -428,7 +443,7 @@ main { display: block; }
                 <button class="sound-toggle" type="button" data-sound-toggle aria-label="Turn sound on" aria-pressed="false">Sound off</button>
               </div>
             </div>
-            <div class="work-info"><p class="work-category">Event</p><h3><a href="https://www.youtube.com/watch?v=Erdjupk2tUQ" target="_blank" rel="noopener noreferrer">Bavarian District Meeting Vol. 5</a></h3></div>
+            <div class="work-info"><div class="work-copy"><p class="work-category">Event</p><h3><a href="https://www.youtube.com/watch?v=Erdjupk2tUQ" target="_blank" rel="noopener noreferrer">Bavarian District Meeting Vol. 5</a></h3></div><a class="work-open-link" href="https://www.youtube.com/watch?v=Erdjupk2tUQ" target="_blank" rel="noopener noreferrer" aria-label="Watch Bavarian District Meeting Vol. 5 on YouTube"><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
           </article>
         </div>
       </div>
@@ -531,6 +546,10 @@ main { display: block; }
         url.searchParams.set("playlist", id);
         url.searchParams.set("playsinline", "1");
         url.searchParams.set("rel", "0");
+        url.searchParams.set("modestbranding", "1");
+        url.searchParams.set("iv_load_policy", "3");
+        url.searchParams.set("fs", "0");
+        url.searchParams.set("disablekb", "1");
         url.searchParams.set("enablejsapi", "1");
         url.searchParams.set("origin", window.location.origin);
         return url.toString();
@@ -545,7 +564,9 @@ main { display: block; }
             var stage = frame.closest(".media-frame");
             if (stage) stage.classList.add("is-live");
             var sound = stage && stage.querySelector("[data-sound-toggle]");
+            postPlayerCommand(frame, "playVideo");
             if (sound && sound.getAttribute("aria-pressed") === "true") postPlayerCommand(frame, "unMute");
+            else postPlayerCommand(frame, "mute");
           });
         }
         frame.src = playerUrl(frame);
