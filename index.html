@@ -176,6 +176,9 @@ main { display: block; }
 .media-frame--still { aspect-ratio: 4 / 5; }
 .video-poster, .uploaded-visual { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .video-poster { opacity: 1; transition: opacity .4s ease, transform .7s var(--ease); }
+#workGrid .work-card:nth-child(1) .video-poster[data-fallback="aura"] { object-position: 50% 14%; }
+#workGrid .work-card:nth-child(2) .video-poster[data-fallback="aura"] { object-position: 50% 50%; }
+#workGrid .work-card:nth-child(3) .video-poster[data-fallback="aura"] { object-position: 50% 86%; }
 .work-card:hover .video-poster { transform: scale(1.035); }
 .youtube-player { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; border: 0; background: #050605; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
 .media-frame.is-live .youtube-player { opacity: 1; }
@@ -772,9 +775,17 @@ main { display: block; }
         var videoId = image.closest("[data-video-card]")?.querySelector("[data-video-player]")?.getAttribute("data-video-id");
         if (!videoId) return;
         image.addEventListener("error", function () {
-          if (image.dataset.fallback) { image.remove(); return; }
-          image.dataset.fallback = "true";
-          image.src = "https://i.ytimg.com/vi/" + encodeURIComponent(videoId) + "/hqdefault.jpg";
+          if (!image.dataset.fallback) {
+            image.dataset.fallback = "hq";
+            image.src = "https://i.ytimg.com/vi/" + encodeURIComponent(videoId) + "/hqdefault.jpg";
+            return;
+          }
+          if (image.dataset.fallback === "hq") {
+            image.dataset.fallback = "aura";
+            image.src = "assets/aura-rs-event.jpg";
+            return;
+          }
+          image.remove();
         });
       });
     })();
