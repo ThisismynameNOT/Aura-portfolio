@@ -139,8 +139,8 @@
     .hero::after { content: ""; position: absolute; z-index: -1; bottom: 3%; left: 0; width: min(48vw, 630px); aspect-ratio: 1; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(82,64,108,.13), transparent 68%); filter: blur(32px); }
     .hero-inner {
       width: min(var(--wrap), calc(100% - 64px)); margin-inline: auto;
-      display: grid; grid-template-columns: minmax(0, .64fr) minmax(0, 1fr);
-      position: relative; z-index: 1; align-items: center; gap: clamp(34px, 4vw, 62px);
+      display: grid; grid-template-columns: minmax(0, .68fr) minmax(0, 1fr);
+      position: relative; z-index: 1; align-items: center; gap: clamp(34px, 3.6vw, 54px);
     }
     .hero-copy { position: relative; z-index: 2; padding: 20px 0; }
     .hero h1 {
@@ -161,9 +161,9 @@
     .hero-visual::before { content: ""; position: absolute; z-index: 2; inset: 0; border: 1px solid rgba(255,255,255,.2); border-radius: inherit; pointer-events: none; background: linear-gradient(135deg, rgba(255,255,255,.18), transparent 19%, transparent 77%, rgba(222,190,200,.1)); }
     .hero-visual::after {
       content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none;
-      background: linear-gradient(180deg, rgba(5,5,7,.04), transparent 42%, rgba(5,5,7,.12) 61%, rgba(5,5,7,.7));
+      background: linear-gradient(180deg, rgba(5,5,7,.02), transparent 46%, rgba(5,5,7,.08) 62%, rgba(5,5,7,.42));
     }
-    .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform 1.2s var(--ease); }
+    .hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; object-position: center; transition: transform 1.2s var(--ease); }
     .hero-visual:hover .hero-image { transform: scale(1.035); }
     .hero-visual-top, .hero-visual-bottom { position: absolute; z-index: 3; left: 22px; right: 22px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
     .hero-visual-top { top: 20px; justify-content: flex-end; color: rgba(255,255,255,.91); font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
@@ -279,6 +279,9 @@
       .site-header, .mobile-menu, .nav-cta, .button, .menu-toggle, .hero-visual-top > span:first-child, .hero-caption, .hero-play, .preview-start, .sound-toggle { -webkit-backdrop-filter: none; backdrop-filter: none; }
       .site-header { background: #111114; }
       .mobile-menu, .hero-caption, .preview-start, .sound-toggle, .hero-play { background: #17151a; }
+    }
+    @media (max-width: 1400px) and (min-width: 1051px) {
+      .hero h1 { font-size: clamp(60px, 6.8vw, 96px); }
     }
     @media (max-width: 1050px) {
       .site-header { grid-template-columns: minmax(190px, 1fr) auto minmax(130px, 1fr); gap: 18px; }
