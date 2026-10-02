@@ -166,8 +166,11 @@ main { display: block; }
 .media-frame {
   position: relative; isolation: isolate; aspect-ratio: 16 / 10; overflow: hidden;
   border-radius: 11px;
-  border: 1px solid rgba(201,177,131,.32); background: #111210;
+  border: 1px solid rgba(201,177,131,.32); background: #111210 url("assets/aura-rs-event.jpg") center / cover no-repeat;
 }
+#workGrid .work-card:nth-child(1) .media-frame { background-position: 50% 14%; }
+#workGrid .work-card:nth-child(2) .media-frame { background-position: 50% 50%; }
+#workGrid .work-card:nth-child(3) .media-frame { background-position: 50% 86%; }
 .media-frame::before { content: ""; position: absolute; z-index: 2; inset: 4px; border: 1px solid rgba(234,220,193,.1); border-radius: 7px; pointer-events: none; }
 .media-frame::after {
   content: ""; position: absolute; z-index: 1; inset: 58% 0 0; pointer-events: none;
