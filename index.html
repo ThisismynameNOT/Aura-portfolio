@@ -417,9 +417,9 @@ main { display: block; }
               <img class="video-poster" src="https://img.youtube.com/vi/TzJsE-Osbco/maxresdefault.jpg" alt="" loading="lazy">
               <iframe class="youtube-player" data-video-player data-video-id="TzJsE-Osbco" title="Bavarian District Meeting Vol. 6 — Aura Production" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               <div class="media-tools">
-                <button class="preview-start" type="button" data-start-video aria-label="Play Bavarian District Meeting Vol. 6 preview">
+                <a class="preview-start" href="https://www.youtube.com/watch?v=TzJsE-Osbco" target="_blank" rel="noopener noreferrer" data-start-video aria-label="Play Bavarian District Meeting Vol. 6 preview">
                   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5.7 3.7c0-.6.65-.95 1.15-.63l6.2 4.1a.75.75 0 0 1 0 1.26l-6.2 4.1a.75.75 0 0 1-1.15-.63V3.7Z" fill="currentColor"/></svg>
-                </button>
+                </a>
                 <button class="sound-toggle" type="button" data-sound-toggle aria-label="Turn sound on" aria-pressed="false">Sound off</button>
               </div>
             </div>
@@ -430,9 +430,9 @@ main { display: block; }
               <img class="video-poster" src="https://img.youtube.com/vi/5w7hvksP_hU/maxresdefault.jpg" alt="" loading="lazy">
               <iframe class="youtube-player" data-video-player data-video-id="5w7hvksP_hU" title="Tuning Story 2025 — Aura Production" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               <div class="media-tools">
-                <button class="preview-start" type="button" data-start-video aria-label="Play Tuning Story 2025 preview">
+                <a class="preview-start" href="https://www.youtube.com/watch?v=5w7hvksP_hU" target="_blank" rel="noopener noreferrer" data-start-video aria-label="Play Tuning Story 2025 preview">
                   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5.7 3.7c0-.6.65-.95 1.15-.63l6.2 4.1a.75.75 0 0 1 0 1.26l-6.2 4.1a.75.75 0 0 1-1.15-.63V3.7Z" fill="currentColor"/></svg>
-                </button>
+                </a>
                 <button class="sound-toggle" type="button" data-sound-toggle aria-label="Turn sound on" aria-pressed="false">Sound off</button>
               </div>
             </div>
@@ -443,9 +443,9 @@ main { display: block; }
               <img class="video-poster" src="https://img.youtube.com/vi/Erdjupk2tUQ/maxresdefault.jpg" alt="" loading="lazy">
               <iframe class="youtube-player" data-video-player data-video-id="Erdjupk2tUQ" title="Bavarian District Meeting Vol. 5 — Aura Production" loading="lazy" allow="autoplay; encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
               <div class="media-tools">
-                <button class="preview-start" type="button" data-start-video aria-label="Play Bavarian District Meeting Vol. 5 preview">
+                <a class="preview-start" href="https://www.youtube.com/watch?v=Erdjupk2tUQ" target="_blank" rel="noopener noreferrer" data-start-video aria-label="Play Bavarian District Meeting Vol. 5 preview">
                   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M5.7 3.7c0-.6.65-.95 1.15-.63l6.2 4.1a.75.75 0 0 1 0 1.26l-6.2 4.1a.75.75 0 0 1-1.15-.63V3.7Z" fill="currentColor"/></svg>
-                </button>
+                </a>
                 <button class="sound-toggle" type="button" data-sound-toggle aria-label="Turn sound on" aria-pressed="false">Sound off</button>
               </div>
             </div>
@@ -653,10 +653,11 @@ main { display: block; }
         var frame = stage.querySelector("[data-video-player]");
         var start = stage.querySelector("[data-start-video]");
         var sound = stage.querySelector("[data-sound-toggle]");
-        if (frame && start) start.addEventListener("click", function () {
+        if (frame && start) start.addEventListener("click", function (event) {
+          if (!frame.auraYouTubePlayer) return;
+          event.preventDefault();
           loadPlayer(frame);
-          if (frame.auraYouTubePlayer) postPlayerCommand(frame, "playVideo");
-          else openWatchVideo(frame);
+          postPlayerCommand(frame, "playVideo");
         });
         if (sound && frame) {
           sound.addEventListener("click", function () {
