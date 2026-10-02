@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0b0a10">
-  <meta name="description" content="Aura Motion Pictures — photography, film and editing for automotive and events.">
-  <title>AURA — Motion Pictures</title>
+  <meta name="description" content="Aura Motion Pictures — photography, film and editing for automotive and events." data-site-meta="pageDescription">
+  <title data-site-meta="pageTitle">AURA — Motion Pictures</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -263,6 +263,13 @@ main { display: block; }
 .media-library.is-visible { display: block; }
 .media-library .section-head { margin-bottom: 24px; }
 .media-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 24px; align-items: start; }
+.gallery-section-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.gallery-section-head .section-title { margin: 0; }
+.gallery-description { max-width: 48ch; margin: 0; color: var(--muted); font-size: 11px; line-height: 1.7; }
+.gallery-grid--film { grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); }
+.gallery-grid--film .uploaded-card .media-frame { aspect-ratio: 16 / 9; }
+.gallery-grid--editorial { grid-template-columns: minmax(0, 1.1fr) minmax(250px, .9fr); gap: 28px; }
+.gallery-grid--editorial .uploaded-card:nth-child(3n+1) { grid-row: span 2; }
 .uploaded-card .media-frame { aspect-ratio: 16 / 10; }
 .uploaded-card .media-frame--still { aspect-ratio: 4 / 5; }
 .uploaded-card video.uploaded-visual { background: #10110f; }
@@ -362,7 +369,11 @@ main { display: block; }
   .work-info h3 { font-size: 18px; }
   .work-category { font-size: 8px; }
   .media-library { padding-bottom: 64px; }
+  .gallery-section-head { display: block; }
+  .gallery-description { margin-top: 12px; font-size: 10px; }
   .media-grid { grid-template-columns: 1fr; gap: 25px; }
+  .gallery-grid--editorial { grid-template-columns: 1fr; }
+  .gallery-grid--editorial .uploaded-card:nth-child(3n+1) { grid-row: auto; }
   .approach { padding-top: 58px; }
   .approach-head { display: block; margin-bottom: 23px; }
   .approach-head p { margin-top: 12px; font-size: 10px; }
@@ -396,15 +407,15 @@ main { display: block; }
 
   <header class="site-header">
     <a class="brand" href="#top" aria-label="AURA Motion Pictures home">
-      <span class="brand-word">AURA</span>
-      <span class="brand-sub">Motion Pictures</span>
+      <span class="brand-word" data-site-field="brandName">AURA</span>
+      <span class="brand-sub" data-site-field="brandDescriptor">Motion Pictures</span>
     </a>
     <nav class="desktop-nav" aria-label="Main navigation">
-      <a href="#work">Work</a><a href="#approach">About</a>
+      <a href="#work" data-site-field="navWorkLabel">Work</a><a href="#approach" data-site-field="navAboutLabel">About</a>
     </nav>
     <div class="nav-end">
       <a class="header-cta" href="#contact" aria-label="Contact Aura about a project">
-        Contact
+        <span data-site-field="navContactLabel">Contact</span>
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
       <button class="menu-toggle" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenu">
@@ -412,10 +423,10 @@ main { display: block; }
       </button>
     </div>
     <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation" hidden>
-      <a href="#work">Work <span aria-hidden="true">↘</span></a>
-      <a href="#approach">About <span aria-hidden="true">↘</span></a>
-      <a href="#contact">Contact <span aria-hidden="true">↘</span></a>
-      <a class="mobile-cta" href="https://www.instagram.com/aura.v1suals/" target="_blank" rel="noopener noreferrer">Message Aura <span aria-hidden="true">↗</span></a>
+      <a href="#work"><span data-site-field="navWorkLabel">Work</span> <span aria-hidden="true">↘</span></a>
+      <a href="#approach"><span data-site-field="navAboutLabel">About</span> <span aria-hidden="true">↘</span></a>
+      <a href="#contact"><span data-site-field="navContactLabel">Contact</span> <span aria-hidden="true">↘</span></a>
+      <a class="mobile-cta" href="https://www.instagram.com/aura.v1suals/" target="_blank" rel="noopener noreferrer" data-site-href="contactUrl"><span data-site-field="contactButtonLabel">Message Aura</span> <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
@@ -423,25 +434,25 @@ main { display: block; }
     <section class="hero" id="top" aria-labelledby="hero-title">
       <div class="hero-inner">
         <div class="hero-copy">
-          <h1 id="hero-title">AURA</h1>
-          <p class="hero-description">Photography · Film · Editing</p>
+          <h1 id="hero-title" data-site-field="heroTitle">AURA</h1>
+          <p class="hero-description" data-site-field="heroDescription">Photography · Film · Editing</p>
           <div class="hero-actions">
-            <a class="discover-link" href="#work">
+            <a class="discover-link" href="#work" data-site-href="heroCtaHref">
               <span class="discover-ring" aria-hidden="true">
                 <svg viewBox="0 0 20 20" fill="none"><path d="M4 10h11M10 5l5 5-5 5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </span>
-              <span>Discover the work</span>
+              <span data-site-field="heroCtaLabel">Discover the work</span>
             </a>
           </div>
         </div>
         <figure class="hero-feature">
-          <a class="hero-visual" href="https://www.instagram.com/p/CjTGylntPzz/" target="_blank" rel="noopener noreferrer" aria-label="View RS Event, The Cream on Aura’s Instagram">
-            <img class="hero-image" src="assets/aura-rs-event.jpg" alt="Aura event photography at RS Event — The Cream" width="1080" height="1080" fetchpriority="high" decoding="async">
+          <a class="hero-visual" href="https://www.instagram.com/p/CjTGylntPzz/" target="_blank" rel="noopener noreferrer" aria-label="View RS Event, The Cream on Aura’s Instagram" data-site-href="heroSourceUrl">
+            <img class="hero-image" src="assets/aura-rs-event.jpg" alt="Aura event photography at RS Event — The Cream" width="1080" height="1080" fetchpriority="high" decoding="async" data-site-src="heroImageUrl" data-site-alt="heroImageAlt">
           </a>
           <figcaption class="hero-caption">
             <span class="hero-caption-copy">
-              <span class="hero-caption-label">Event photography</span>
-              <span class="hero-caption-title">RS Event — The Cream</span>
+              <span class="hero-caption-label" data-site-field="heroCaptionLabel">Event photography</span>
+              <span class="hero-caption-title" data-site-field="heroCaptionTitle">RS Event — The Cream</span>
             </span>
             <span class="hero-caption-arrow" aria-hidden="true">
               <svg viewBox="0 0 16 16" fill="none"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -454,9 +465,9 @@ main { display: block; }
     <section class="section work-section" id="work" aria-labelledby="work-title">
       <div class="wrap">
         <div class="work-section-head reveal">
-          <h2 class="section-title" id="work-title">Selected work</h2>
-          <a class="work-channel-link" href="https://youtube.com/@aura.motion.pictures" target="_blank" rel="noopener noreferrer" aria-label="View all Aura films on YouTube">
-            <span>View channel</span>
+          <h2 class="section-title" id="work-title" data-site-field="workTitle">Selected work</h2>
+          <a class="work-channel-link" href="https://youtube.com/@aura.motion.pictures" target="_blank" rel="noopener noreferrer" aria-label="View all Aura films on YouTube" data-site-href="workChannelUrl">
+            <span data-site-field="workChannelLabel">View channel</span>
             <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 12 12 4M5 4h7v7" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
         </div>
@@ -504,23 +515,18 @@ main { display: block; }
       </div>
     </section>
 
-    <section class="media-library section" id="mediaLibrary" aria-labelledby="media-library-title">
-      <div class="wrap">
-        <div class="section-head"><h2 class="section-title" id="media-library-title">More from Aura</h2></div>
-        <div class="media-grid" id="mediaGrid"></div>
-      </div>
-    </section>
+    <div id="gallerySections" aria-live="polite"></div>
 
     <section class="section approach" id="approach" aria-labelledby="approach-title">
       <div class="wrap">
         <div class="approach-head reveal">
-          <h2 class="section-title" id="approach-title">The craft</h2>
-          <p>Photography, film and post-production by Aura.</p>
+          <h2 class="section-title" id="approach-title" data-site-field="aboutTitle">The craft</h2>
+          <p data-site-field="aboutDescription">Photography, film and post-production by Aura.</p>
         </div>
         <div class="service-grid reveal">
-          <article class="service"><h3>Photography</h3><p>Automotive and event imagery with atmosphere.</p></article>
-          <article class="service"><h3>Film</h3><p>Stories captured with movement and pace.</p></article>
-          <article class="service"><h3>Editing</h3><p>Photo and video post-production by Aura.</p></article>
+          <article class="service"><h3 data-site-field="serviceOneTitle">Photography</h3><p data-site-field="serviceOneDescription">Automotive and event imagery with atmosphere.</p></article>
+          <article class="service"><h3 data-site-field="serviceTwoTitle">Film</h3><p data-site-field="serviceTwoDescription">Stories captured with movement and pace.</p></article>
+          <article class="service"><h3 data-site-field="serviceThreeTitle">Editing</h3><p data-site-field="serviceThreeDescription">Photo and video post-production by Aura.</p></article>
         </div>
       </div>
     </section>
@@ -528,9 +534,9 @@ main { display: block; }
     <section class="contact-section" id="contact" aria-labelledby="contact-title">
       <div class="wrap">
         <div class="contact-panel reveal">
-          <div><h2 id="contact-title">For the next frame.</h2><p>For projects and collaborations, message Aura.</p></div>
+          <div><h2 id="contact-title" data-site-field="contactTitle">For the next frame.</h2><p data-site-field="contactDescription">For projects and collaborations, message Aura.</p></div>
           <div class="contact-actions">
-            <a class="button button-primary" href="https://www.instagram.com/aura.v1suals/" target="_blank" rel="noopener noreferrer">Message Aura <span aria-hidden="true">↗</span></a>
+            <a class="button button-primary" href="https://www.instagram.com/aura.v1suals/" target="_blank" rel="noopener noreferrer" data-site-href="contactUrl"><span data-site-field="contactButtonLabel">Message Aura</span> <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </div>
@@ -540,14 +546,14 @@ main { display: block; }
   <footer class="site-footer">
     <div class="wrap footer-row">
       <a class="footer-brand" href="#top" aria-label="AURA, back to top">
-        <span class="brand-word">AURA</span>
-        <span class="brand-sub">Motion Pictures</span>
+        <span class="brand-word" data-site-field="brandName">AURA</span>
+        <span class="brand-sub" data-site-field="brandDescriptor">Motion Pictures</span>
       </a>
-      <span class="footer-copy">Photography · Film · Editing</span>
+      <span class="footer-copy" data-site-field="heroDescription">Photography · Film · Editing</span>
       <nav class="footer-socials" aria-label="Social profiles">
-        <a href="https://www.instagram.com/aura.v1suals/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
-        <a href="https://youtube.com/@aura.motion.pictures" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
-        <a href="https://www.facebook.com/share/1DJTyFkYKF/" target="_blank" rel="noopener noreferrer">Facebook ↗</a>
+        <a href="https://www.instagram.com/aura.v1suals/" target="_blank" rel="noopener noreferrer" data-site-href="instagramUrl">Instagram ↗</a>
+        <a href="https://youtube.com/@aura.motion.pictures" target="_blank" rel="noopener noreferrer" data-site-href="workChannelUrl">YouTube ↗</a>
+        <a href="https://www.facebook.com/share/1DJTyFkYKF/" target="_blank" rel="noopener noreferrer" data-site-href="facebookUrl">Facebook ↗</a>
       </nav>
     </div>
   </footer>
@@ -559,8 +565,8 @@ main { display: block; }
       var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       var menuToggle = document.querySelector(".menu-toggle");
       var mobileMenu = document.getElementById("mobileMenu");
-      var mediaGrid = document.getElementById("mediaGrid");
-      var mediaLibrary = document.getElementById("mediaLibrary");
+      var gallerySections = document.getElementById("gallerySections");
+      var workGrid = document.getElementById("workGrid");
 
       function closeMenu() {
         if (!menuToggle || !mobileMenu) return;
@@ -698,7 +704,7 @@ main { display: block; }
         if (sound) setSoundButton(sound, false);
         if (stage) stage.classList.remove("is-live");
       }
-      document.querySelectorAll("[data-video-card]").forEach(function (stage) {
+      function bindYouTubeStage(stage) {
         var frame = stage.querySelector("[data-video-player]");
         var start = stage.querySelector("[data-start-video]");
         var sound = stage.querySelector("[data-sound-toggle]");
@@ -723,7 +729,8 @@ main { display: block; }
             else postPlayerCommand(frame, enabled ? "unMute" : "mute");
           });
         }
-      });
+      }
+      document.querySelectorAll("[data-video-card]").forEach(bindYouTubeStage);
 
       var mediaObserver = null;
       if ("IntersectionObserver" in window) {
@@ -753,8 +760,61 @@ main { display: block; }
         document.querySelectorAll("[data-video-card]").forEach(function (stage) { mediaObserver.observe(stage); });
       }
 
-      function addUploadedMedia(item) {
-        if (!item || !item.id || !item.url || !["stills", "film", "events"].includes(item.category)) return;
+      function setSiteFields(settings) {
+        document.querySelectorAll("[data-site-field]").forEach(function (element) {
+          var value = settings[element.dataset.siteField];
+          if (typeof value === "string") element.textContent = value;
+        });
+        document.querySelectorAll("[data-site-href]").forEach(function (element) {
+          var value = settings[element.dataset.siteHref];
+          if (typeof value === "string" && value) element.href = value;
+        });
+        document.querySelectorAll("[data-site-src]").forEach(function (element) {
+          var value = settings[element.dataset.siteSrc];
+          if (typeof value === "string" && value) element.src = value;
+        });
+        document.querySelectorAll("[data-site-alt]").forEach(function (element) {
+          var value = settings[element.dataset.siteAlt];
+          if (typeof value === "string") element.alt = value;
+        });
+        document.querySelectorAll("[data-site-meta]").forEach(function (element) {
+          var value = settings[element.dataset.siteMeta];
+          if (typeof value === "string") {
+            if (element.tagName === "TITLE") document.title = value;
+            else element.content = value;
+          }
+        });
+        [["showFeaturedWork", "#work"], ["showAbout", "#approach"], ["showContact", "#contact"]].forEach(function (entry) {
+          var section = document.querySelector(entry[1]);
+          if (section) section.hidden = settings[entry[0]] === false;
+        });
+        if (settings.accentColor) document.documentElement.style.setProperty("--gold", settings.accentColor);
+      }
+
+      function createSoundButton(media) {
+        var sound = document.createElement("button");
+        sound.className = "sound-toggle";
+        sound.type = "button";
+        sound.setAttribute("aria-pressed", "false");
+        sound.setAttribute("aria-label", "Turn sound on");
+        sound.textContent = "Sound off";
+        sound.addEventListener("click", function () {
+          var enabled = sound.getAttribute("aria-pressed") !== "true";
+          document.querySelectorAll(".gallery-section video.uploaded-visual").forEach(function (otherVideo) {
+            if (otherVideo === media) return;
+            otherVideo.muted = true;
+            var otherButton = otherVideo.closest("[data-video-card]")?.querySelector("[data-sound-toggle]");
+            if (otherButton) setSoundButton(otherButton, false);
+          });
+          media.muted = !enabled;
+          setSoundButton(sound, enabled);
+          if (enabled) media.play().catch(function () {});
+        });
+        return sound;
+      }
+
+      function createMediaCard(item, sectionTitle) {
+        if (!item || !item.id || !item.url || !["photo", "video"].includes(item.kind)) return null;
         var card = document.createElement("article");
         card.className = "work-card uploaded-card reveal";
         card.setAttribute("data-category", item.category);
@@ -763,13 +823,14 @@ main { display: block; }
         var media;
         if (item.kind === "video") {
           media = document.createElement("video");
-          media.controls = true;
           media.loop = true;
           media.muted = true;
           media.defaultMuted = true;
           media.playsInline = true;
           media.preload = "metadata";
           media.setAttribute("aria-label", item.title || "Aura video");
+          media.setAttribute("controlslist", "nodownload noplaybackrate");
+          stage.dataset.videoCard = "";
         } else {
           media = document.createElement("img");
           media.alt = item.alt || item.title || "Aura photograph";
@@ -781,22 +842,16 @@ main { display: block; }
         if (item.kind === "video") {
           var tools = document.createElement("div");
           tools.className = "media-tools";
-          var sound = document.createElement("button");
-          sound.className = "sound-toggle";
-          sound.type = "button";
-          sound.setAttribute("aria-pressed", "false");
-          sound.setAttribute("aria-label", "Turn sound on");
-          sound.textContent = "Sound off";
-          sound.addEventListener("click", function () {
-            var enabled = sound.getAttribute("aria-pressed") !== "true";
-            media.muted = !enabled;
-            setSoundButton(sound, enabled);
-          });
-          tools.appendChild(sound);
+          tools.appendChild(createSoundButton(media));
           stage.appendChild(tools);
         }
         var info = document.createElement("div");
         info.className = "work-info";
+        var copy = document.createElement("div");
+        copy.className = "work-copy";
+        var category = document.createElement("p");
+        category.className = "work-category";
+        category.textContent = sectionTitle || (item.kind === "video" ? "Film" : "Photography");
         var title = document.createElement("h3");
         title.textContent = item.title || "Aura project";
         var link = document.createElement("a");
@@ -804,18 +859,134 @@ main { display: block; }
         link.href = item.url;
         link.target = "_blank";
         link.rel = "noopener noreferrer";
-        link.textContent = "Open media ↗";
-        info.append(title, link);
+        link.textContent = item.kind === "video" ? "Watch film ↗" : "View photograph ↗";
+        copy.append(category, title);
+        info.append(copy, link);
         card.append(stage, info);
-        mediaGrid.appendChild(card);
-        mediaLibrary.classList.add("is-visible");
         if (mediaObserver) mediaObserver.observe(stage);
         if (revealObserver) revealObserver.observe(card);
+        return card;
       }
-      fetch("/api/media")
-        .then(function (response) { if (!response.ok) throw new Error("Media library unavailable"); return response.json(); })
-        .then(function (items) { if (Array.isArray(items)) items.forEach(addUploadedMedia); })
-        .catch(function () { /* GitHub Pages has no upload server; Aura's public social work remains visible. */ });
+
+      function renderFeaturedItems(items) {
+        if (!workGrid || !Array.isArray(items)) return;
+        workGrid.replaceChildren();
+        items.forEach(function (item) {
+          if (!item || !item.youtubeId || !item.title) return;
+          var card = document.createElement("article");
+          card.className = "work-card reveal";
+          var stage = document.createElement("div");
+          stage.className = "media-frame";
+          stage.dataset.videoCard = "";
+          var poster = document.createElement("img");
+          poster.className = "video-poster";
+          poster.src = "https://img.youtube.com/vi/" + encodeURIComponent(item.youtubeId) + "/maxresdefault.jpg";
+          poster.alt = "";
+          poster.loading = "lazy";
+          var frame = document.createElement("iframe");
+          frame.className = "youtube-player";
+          frame.dataset.videoPlayer = "";
+          frame.dataset.videoId = item.youtubeId;
+          frame.title = item.title + " — Aura Production";
+          frame.loading = "lazy";
+          frame.allow = "autoplay; encrypted-media; picture-in-picture; web-share";
+          frame.referrerPolicy = "strict-origin-when-cross-origin";
+          frame.allowFullscreen = true;
+          var tools = document.createElement("div");
+          tools.className = "media-tools";
+          var start = document.createElement("a");
+          start.className = "preview-start";
+          start.href = "https://www.youtube.com/watch?v=" + encodeURIComponent(item.youtubeId);
+          start.target = "_blank";
+          start.rel = "noopener noreferrer";
+          start.dataset.startVideo = "";
+          start.setAttribute("aria-label", "Play " + item.title + " preview");
+          start.textContent = "▶";
+          var sound = document.createElement("button");
+          sound.className = "sound-toggle";
+          sound.type = "button";
+          sound.dataset.soundToggle = "";
+          sound.setAttribute("aria-label", "Turn sound on");
+          sound.setAttribute("aria-pressed", "false");
+          sound.textContent = "Sound off";
+          tools.append(start, sound);
+          stage.append(poster, frame, tools);
+          var info = document.createElement("div");
+          info.className = "work-info";
+          var copy = document.createElement("div");
+          copy.className = "work-copy";
+          var label = document.createElement("p");
+          label.className = "work-category";
+          label.textContent = item.category || "Film";
+          var heading = document.createElement("h3");
+          var watch = document.createElement("a");
+          watch.href = start.href;
+          watch.target = "_blank";
+          watch.rel = "noopener noreferrer";
+          watch.textContent = item.title;
+          heading.append(watch);
+          copy.append(label, heading);
+          var open = document.createElement("a");
+          open.className = "work-open-link";
+          open.href = start.href;
+          open.target = "_blank";
+          open.rel = "noopener noreferrer";
+          open.setAttribute("aria-label", "Watch " + item.title + " on YouTube");
+          open.textContent = "↗";
+          info.append(copy, open);
+          card.append(stage, info);
+          workGrid.append(card);
+          bindYouTubeStage(stage);
+          if (mediaObserver) mediaObserver.observe(stage);
+          if (revealObserver) revealObserver.observe(card);
+        });
+      }
+
+      function renderGallerySections(sections) {
+        if (!gallerySections || !Array.isArray(sections)) return;
+        gallerySections.replaceChildren();
+        sections.forEach(function (section) {
+          if (!section || !section.visible || !Array.isArray(section.media) || !section.media.length) return;
+          var container = document.createElement("section");
+          container.className = "media-library section is-visible gallery-section";
+          container.id = "gallery-" + String(section.id).replace(/[^a-z0-9-]/gi, "");
+          container.setAttribute("aria-labelledby", container.id + "-title");
+          var wrap = document.createElement("div");
+          wrap.className = "wrap";
+          var heading = document.createElement("div");
+          heading.className = "section-head gallery-section-head";
+          var title = document.createElement("h2");
+          title.className = "section-title";
+          title.id = container.id + "-title";
+          title.textContent = section.title;
+          heading.append(title);
+          if (section.description) {
+            var description = document.createElement("p");
+            description.className = "gallery-description";
+            description.textContent = section.description;
+            heading.append(description);
+          }
+          var grid = document.createElement("div");
+          grid.className = "media-grid gallery-grid gallery-grid--" + (section.layout || "grid");
+          section.media.forEach(function (item) {
+            var card = createMediaCard(item, section.title);
+            if (card) grid.append(card);
+          });
+          wrap.append(heading, grid);
+          container.append(wrap);
+          gallerySections.append(container);
+        });
+      }
+
+      fetch("/api/site")
+        .then(function (response) { if (!response.ok) throw new Error("Aura site content unavailable"); return response.json(); })
+        .then(function (site) {
+          if (!site || !site.settings) return;
+          setSiteFields(site.settings);
+          renderFeaturedItems(site.featuredItems);
+          renderGallerySections(site.sections);
+        })
+        .catch(function () { /* Keep the built-in Aura portfolio visible if the CMS is offline. */ });
 
       var revealObserver = null;
       if (!reduceMotion && "IntersectionObserver" in window) {
