@@ -184,9 +184,9 @@ main { display: block; }
 #workGrid .work-card:nth-child(3) .video-poster[data-fallback="aura"] { object-position: 50% 86%; }
 .work-card:hover .video-poster { transform: scale(1.035); }
 .youtube-player { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; border: 0; background: #050605; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
-.media-frame.is-live .youtube-player, .media-frame.api-fallback .youtube-player { opacity: 1; pointer-events: auto; }
-.media-frame.is-live .video-poster, .media-frame.api-fallback .video-poster { opacity: 0; }
-.media-frame.is-live .preview-start, .media-frame.api-fallback .preview-start { opacity: 0; visibility: hidden; pointer-events: none; }
+.media-frame.is-live .youtube-player { opacity: 1; pointer-events: auto; }
+.media-frame.is-live .video-poster { opacity: 0; }
+.media-frame.is-live .preview-start { opacity: 0; visibility: hidden; pointer-events: none; }
 .media-tools { position: absolute; z-index: 4; inset: 0; display: block; pointer-events: none; }
 .media-tools > * { pointer-events: auto; }
 .preview-start, .sound-toggle {
@@ -573,10 +573,7 @@ main { display: block; }
               onStateChange: function (event) {
                 var stage = frame.closest(".media-frame");
                 if (!stage) return;
-                if (event.data === YT.PlayerState.PLAYING && frame.dataset.shouldPlay === "true") {
-                  stage.classList.remove("api-fallback");
-                  stage.classList.add("is-live");
-                }
+                if (event.data === YT.PlayerState.PLAYING && frame.dataset.shouldPlay === "true") stage.classList.add("is-live");
                 else stage.classList.remove("is-live");
               },
               onAutoplayBlocked: function () {
@@ -585,7 +582,7 @@ main { display: block; }
               },
               onError: function () {
                 var stage = frame.closest(".media-frame");
-                if (stage) stage.classList.remove("is-live", "api-fallback");
+                if (stage) stage.classList.remove("is-live");
               }
             }
           });
@@ -619,6 +616,10 @@ main { display: block; }
         url.searchParams.set("origin", window.location.origin);
         return url.toString();
       }
+      function openWatchVideo(frame) {
+        var id = frame && frame.getAttribute("data-video-id");
+        if (id) window.open("https://www.youtube.com/watch?v=" + encodeURIComponent(id), "_blank", "noopener,noreferrer");
+      }
       function loadPlayer(frame) {
         if (!frame) return;
         frame.dataset.shouldPlay = "true";
@@ -646,7 +647,7 @@ main { display: block; }
         var stage = frame.closest(".media-frame");
         var sound = stage && stage.querySelector("[data-sound-toggle]");
         if (sound) setSoundButton(sound, false);
-        if (stage) stage.classList.remove("is-live", "api-fallback");
+        if (stage) stage.classList.remove("is-live");
       }
       document.querySelectorAll("[data-video-card]").forEach(function (stage) {
         var frame = stage.querySelector("[data-video-player]");
@@ -654,8 +655,8 @@ main { display: block; }
         var sound = stage.querySelector("[data-sound-toggle]");
         if (frame && start) start.addEventListener("click", function () {
           loadPlayer(frame);
-          stage.classList.add("api-fallback");
-          postPlayerCommand(frame, "playVideo");
+          if (frame.auraYouTubePlayer) postPlayerCommand(frame, "playVideo");
+          else openWatchVideo(frame);
         });
         if (sound && frame) {
           sound.addEventListener("click", function () {
@@ -668,8 +669,8 @@ main { display: block; }
             });
             setSoundButton(sound, enabled);
             loadPlayer(frame);
-            stage.classList.add("api-fallback");
-            postPlayerCommand(frame, enabled ? "unMute" : "mute");
+            if (enabled && !frame.auraYouTubePlayer) openWatchVideo(frame);
+            else postPlayerCommand(frame, enabled ? "unMute" : "mute");
           });
         }
       });
