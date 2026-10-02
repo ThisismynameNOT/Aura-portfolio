@@ -180,7 +180,7 @@ main { display: block; }
 .youtube-player { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; border: 0; background: #050605; opacity: 0; pointer-events: none; transition: opacity .4s ease; }
 .media-frame.is-live .youtube-player { opacity: 1; }
 .media-frame.is-live .video-poster { opacity: 0; }
-.media-frame.is-live .preview-start { opacity: 0; pointer-events: none; }
+.media-frame.is-live .preview-start { opacity: 0; visibility: hidden; pointer-events: none; }
 .media-tools { position: absolute; z-index: 4; inset: 0; display: block; pointer-events: none; }
 .media-tools > * { pointer-events: auto; }
 .preview-start, .sound-toggle {
@@ -530,8 +530,64 @@ main { display: block; }
         button.setAttribute("aria-label", enabled ? "Mute video" : "Turn sound on");
         button.textContent = enabled ? "Sound on" : "Sound off";
       }
+      var youtubeApiPromise = null;
+      function getYouTubeApi() {
+        if (window.YT && window.YT.Player) return Promise.resolve(window.YT);
+        if (youtubeApiPromise) return youtubeApiPromise;
+        youtubeApiPromise = new Promise(function (resolve, reject) {
+          var previousReady = window.onYouTubeIframeAPIReady;
+          window.onYouTubeIframeAPIReady = function () {
+            if (typeof previousReady === "function") previousReady();
+            resolve(window.YT);
+          };
+          var script = document.createElement("script");
+          script.src = "https://www.youtube.com/iframe_api";
+          script.async = true;
+          script.onerror = function () {
+            youtubeApiPromise = null;
+            reject(new Error("YouTube player API could not be loaded"));
+          };
+          document.head.appendChild(script);
+        });
+        return youtubeApiPromise;
+      }
+      function attachYouTubePlayer(frame) {
+        if (!frame || frame.auraYouTubePlayer) return;
+        getYouTubeApi().then(function (YT) {
+          if (frame.auraYouTubePlayer || !frame.isConnected || frame.dataset.loaded !== "true") return;
+          frame.auraYouTubePlayer = new YT.Player(frame, {
+            events: {
+              onReady: function (event) {
+                event.target.mute();
+                var stage = frame.closest(".media-frame");
+                var sound = stage && stage.querySelector("[data-sound-toggle]");
+                if (sound && sound.getAttribute("aria-pressed") === "true") event.target.unMute();
+                if (frame.dataset.shouldPlay === "true") event.target.playVideo();
+              },
+              onStateChange: function (event) {
+                var stage = frame.closest(".media-frame");
+                if (!stage) return;
+                if (event.data === YT.PlayerState.PLAYING && frame.dataset.shouldPlay === "true") stage.classList.add("is-live");
+                else stage.classList.remove("is-live");
+              },
+              onAutoplayBlocked: function () {
+                var stage = frame.closest(".media-frame");
+                if (stage) stage.classList.remove("is-live");
+              },
+              onError: function () {
+                var stage = frame.closest(".media-frame");
+                if (stage) stage.classList.remove("is-live");
+              }
+            }
+          });
+        }).catch(function () { /* Keep the Aura poster visible if YouTube is unavailable. */ });
+      }
       function postPlayerCommand(frame, command) {
-        if (!frame || !frame.contentWindow || !frame.src) return;
+        if (!frame) return;
+        if (frame.auraYouTubePlayer && typeof frame.auraYouTubePlayer[command] === "function") {
+          try { frame.auraYouTubePlayer[command](); return; } catch (error) { /* Fall back to the iframe command. */ }
+        }
+        if (!frame.contentWindow || !frame.src) return;
         try {
           frame.contentWindow.postMessage(JSON.stringify({ event: "command", func: command, args: [] }), "https://www.youtube-nocookie.com");
         } catch (error) { /* The poster and direct Watch link remain available. */ }
@@ -555,32 +611,33 @@ main { display: block; }
         return url.toString();
       }
       function loadPlayer(frame) {
-        if (!frame || frame.dataset.loaded === "true") return;
+        if (!frame) return;
+        frame.dataset.shouldPlay = "true";
+        if (frame.dataset.loaded === "true") {
+          if (frame.auraYouTubePlayer) postPlayerCommand(frame, "playVideo");
+          else attachYouTubePlayer(frame);
+          return;
+        }
         frame.dataset.loaded = "true";
         if (frame.dataset.loadBound !== "true") {
           frame.dataset.loadBound = "true";
           frame.addEventListener("load", function () {
             if (frame.dataset.loaded !== "true") return;
-            var stage = frame.closest(".media-frame");
-            if (stage) stage.classList.add("is-live");
-            var sound = stage && stage.querySelector("[data-sound-toggle]");
-            postPlayerCommand(frame, "playVideo");
-            if (sound && sound.getAttribute("aria-pressed") === "true") postPlayerCommand(frame, "unMute");
-            else postPlayerCommand(frame, "mute");
+            attachYouTubePlayer(frame);
           });
         }
         frame.src = playerUrl(frame);
       }
       function stopPlayer(frame) {
-        if (!frame || frame.dataset.loaded !== "true") return;
+        if (!frame) return;
+        frame.dataset.shouldPlay = "false";
+        if (frame.dataset.loaded !== "true") return;
         postPlayerCommand(frame, "pauseVideo");
         postPlayerCommand(frame, "mute");
         var stage = frame.closest(".media-frame");
         var sound = stage && stage.querySelector("[data-sound-toggle]");
         if (sound) setSoundButton(sound, false);
         if (stage) stage.classList.remove("is-live");
-        frame.dataset.loaded = "false";
-        frame.removeAttribute("src");
       }
       document.querySelectorAll("[data-video-card]").forEach(function (stage) {
         var frame = stage.querySelector("[data-video-player]");
